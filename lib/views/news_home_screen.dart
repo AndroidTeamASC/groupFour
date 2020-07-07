@@ -41,18 +41,25 @@ class _NewsState extends State<NewsHome> {
             : Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child:Text("News",
-                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0,),
-                 ),
-                ),
-                  
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        "News",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.0,
+                        ),
+                      ),
+                    ),
+                  ),
                   Expanded(
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: everything.articles
                           .map((news) => Container(
+                            height: 100,
                                 padding: EdgeInsets.all(2.0),
                                 child: InkWell(
                                   onTap: () {},
@@ -72,7 +79,7 @@ class _NewsState extends State<NewsHome> {
                                                   fit: BoxFit.fill,
                                                 ))),
                                       SizedBox(
-                                        height: 20,
+                                        height: 10,
                                       ),
                                       Container(
                                         width: 100,
@@ -92,7 +99,37 @@ class _NewsState extends State<NewsHome> {
                           .toList(),
                     ),
                   ),
-                  Text("Popular"),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Align(
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              "Popular",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.0,
+                              ),
+                            )),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: RaisedButton(
+                            onPressed: () {},
+                            child: Text(
+                              "See All",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20.0),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   Expanded(
                     child: ListView(
                       scrollDirection: Axis.vertical,
@@ -123,11 +160,13 @@ class _NewsState extends State<NewsHome> {
                                       ),
                                       Container(
                                         width: 100,
-                                        child: Text(
-                                          news.description,
-                                          maxLines: 2,
-                                          style: TextStyle(),
-                                        ),
+                                        child: (news.description == null
+                                            ? Text("Description")
+                                            : Text(
+                                                news.description,
+                                                maxLines: 2,
+                                                style: TextStyle(),
+                                              )),
                                       ),
                                     ],
                                   )),
