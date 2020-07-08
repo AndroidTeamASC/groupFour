@@ -4,7 +4,7 @@ import 'package:flutter_news_homework/views/news_home_screen.dart';
 import 'package:flutter_news_homework/views/bottom_navigation.dart';
 import 'package:flutter_news_homework/views/everything_screen.dart';
 
-import 'everything.dart';
+// import 'everything.dart';
 
 void main() {
   runApp(
