@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news_homework/views/everything_screen.dart';
 
+import 'news_home_screen.dart';
+
 class BottomNavigate extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
@@ -14,10 +16,12 @@ class BottomNavState extends State<BottomNavigate> {
 
   static const TextStyle textStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
-  static const List<Widget> widgetOption = <Widget>[
-    //new EverythingHome(),
-    Text('Home', style: textStyle, ),
-    Text('Favourite', style: textStyle, ),
+  static  List<Widget> widgetOption = <Widget>[
+    NewsHome(),
+    EverythingHome(),
+    
+    // Text('Home', style: textStyle, ),
+    // Text('Favourite', style: textStyle, ),
   ];
 
   @override

@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_homework/everything.dart';
+import 'package:flutter_news_homework/views/everything_screen.dart';
 import 'package:http/http.dart' as http;
 
 class NewsHome extends StatefulWidget {
@@ -32,10 +34,10 @@ class _NewsState extends State<NewsHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('News'),
-          backgroundColor: Colors.cyan,
-        ),
+        // appBar: AppBar(
+        //   title: Text('News'),
+        //   backgroundColor: Colors.cyan,
+        // ),
         body: everything == null
             ? Center(child: CircularProgressIndicator())
             : Column(
@@ -59,10 +61,23 @@ class _NewsState extends State<NewsHome> {
                       scrollDirection: Axis.horizontal,
                       children: everything.articles
                           .map((news) => Container(
-                            height: 100,
+                                height: 100,
                                 padding: EdgeInsets.all(2.0),
                                 child: InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, DetailNewScreen.routeName,
+                                        arguments: Articles(
+                                          source: news.source,
+                                          author: news.author,
+                                          title: news.title,
+                                          description: news.description,
+                                          url: news.url,
+                                          urlToImage: news.urlToImage,
+                                          publishedAt: news.publishedAt,
+                                          content: news.content,
+                                        ));
+                                  },
                                   child: Card(
                                       child: Column(
                                     children: [
@@ -119,7 +134,19 @@ class _NewsState extends State<NewsHome> {
                         Align(
                           alignment: Alignment.topRight,
                           child: RaisedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              // Navigator.pushNamed(context, EverythingHome.routeName,
+                              // arguments: Everything(
+                              //   status: everything.status,
+                              //   totalResults: everything.totalResults,
+                              //   articles: everything.articles,
+                              // ));
+
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => EverythingHome()));
+                            },
                             child: Text(
                               "See All",
                               style: TextStyle(
@@ -138,7 +165,20 @@ class _NewsState extends State<NewsHome> {
                                 height: 150,
                                 padding: EdgeInsets.all(8.0),
                                 child: InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, DetailScreen.routeName,
+                                        arguments: Articles(
+                                          source: news.source,
+                                          author: news.author,
+                                          title: news.title,
+                                          description: news.description,
+                                          url: news.url,
+                                          urlToImage: news.urlToImage,
+                                          publishedAt: news.publishedAt,
+                                          content: news.content,
+                                        ));
+                                  },
                                   child: Card(
                                       child: Row(
                                     children: [
@@ -177,5 +217,31 @@ class _NewsState extends State<NewsHome> {
                   )
                 ],
               ));
+  }
+}
+
+class DetailNewScreen extends StatelessWidget {
+  static const routeName = '/passArguments';
+
+  @override
+  Widget build(BuildContext context) {
+    final Articles args = ModalRoute.of(context).settings.arguments;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Everything News'),
+      ),
+      body: Column(children: [
+        Image.network(args.urlToImage, width: 200, height: 200),
+        Text(args.title,
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+        const SizedBox(height: 20),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[Text(args.author), Text(args.publishedAt)],
+        ),
+        Text(args.description),
+      ]),
+    );
   }
 }

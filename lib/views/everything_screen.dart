@@ -7,16 +7,18 @@ import 'package:http/http.dart' as http;
 import '../everything.dart';
 
 class EverythingHome extends StatefulWidget {
+  static const routeName = '/everythingArguments';
   @override
   State<StatefulWidget> createState() {
-    return EverythingHomeState( url: "http://newsapi.org/v2/everything?q=apple&from=2020-07-06&to=2020-07-06&sortBy=popularity&apiKey=8f39db3aa4ef40ea83d8ff29a4794ef4");
+    return EverythingHomeState(
+        url:
+            "http://newsapi.org/v2/everything?q=apple&from=2020-07-06&to=2020-07-06&sortBy=popularity&apiKey=8f39db3aa4ef40ea83d8ff29a4794ef4");
   }
 }
 
 class EverythingHomeState extends State<EverythingHome> {
-
-String url;
-  EverythingHomeState({ this.url});
+  String url;
+  EverythingHomeState({this.url});
 
   // var url =
   //     "http://newsapi.org/v2/everything?q=apple&from=2020-07-06&to=2020-07-06&sortBy=popularity&apiKey=8f39db3aa4ef40ea83d8ff29a4794ef4";
@@ -34,13 +36,17 @@ String url;
     var jsonData = jsonDecode(data.body);
     everything = Everything.fromJson(jsonData);
     print("Data" + jsonData.toString());
+
+    setState(() {});
   }
 
   Widget build(BuildContext context) {
+    final Everything args = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('News'),
-      ),
+      // appBar: AppBar(
+      //   title: Text('News'),
+      // ),
       body: everything == null
           ? Center(child: CircularProgressIndicator())
           : ListView(
