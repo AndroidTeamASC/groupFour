@@ -232,13 +232,19 @@ class DetailNewScreen extends StatelessWidget {
         title: Text('Everything News'),
       ),
       body: Column(children: [
-        Image.network(args.urlToImage, width: 200, height: 200),
-        Text(args.title,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+(args.urlToImage == null? Image.network("src"):
+        Image.network(args.urlToImage, width: 200, height: 200)),
+        (args.title == null? Text("null"):
+          Text(args.title,
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))),
         const SizedBox(height: 20),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[Text(args.author), Text(args.publishedAt)],
+          children: <Widget>[
+            (args.author == null? Text("null author"):
+            Text(args.author)), 
+            (args.publishedAt == null? Text("null publish"):
+            Text(args.publishedAt))],
         ),
         Text(args.description),
       ]),
